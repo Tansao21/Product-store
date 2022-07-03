@@ -62,7 +62,7 @@ fetch('https://fakestoreapi.com/products/')
 <!-- <?php //$_SESSION['isInsert'] = false;?> -->
 <?php 
 // if (isset($_SESSION['isInsert']) or $_SESSION['isInsert'] == false)
-
+// unset($_SESSION['isInsert']);
 function get_data($url) {
   $json = file_get_contents($url);
   $data = json_decode($json,true);
@@ -105,14 +105,28 @@ function insert_product_table() {
     mysqli_query($con,$query);
   }
 }
-$data = get_data('https://fakestoreapi.com/products/');
+
+function select_products() {
+  global  $con;
+  $query = "SELECT * FROM `products`";
+  $res = mysqli_query($con,$query);
+  $products = mysqli_fetch_all($res, MYSQLI_ASSOC);
+  return $products;
+}
+
 if (!isset($_SESSION['isInsert']) or $_SESSION['isInsert'] != true) {
+  $data = get_data('https://fakestoreapi.com/products/');
   insert_categories_table();
   $cats = select_categoties();
   insert_product_table();
   $_SESSION['isInsert'] = true;
 
 }
+$cats = select_categoties();
+
+$products = select_products();
+
+
 
 ?>
 
