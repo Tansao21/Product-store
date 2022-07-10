@@ -12,7 +12,7 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="style.css">
 
@@ -50,6 +50,49 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="bi bi-cart-plus"></i>
+        </button>
       </div>
     </div>
   </header>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  class="me-3" width="30">
+          <label for="">Mens Casual Premiu</label>
+          <span class="mx-2 fw-bold">$ 200</span>
+          <button class="btn btn-danger float-end">x</button>
+        </li>
+      </ul>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div>
+          <label>Итого: </label>
+          <span class="fw-bold">$20000</span>
+        </div>
+
+        <div>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Clear All</button>
+          <button type="button" class="btn btn-success">Make order</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

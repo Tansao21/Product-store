@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     //1
   /*  
 fetch('https://fakestoreapi.com/products/')
@@ -32,10 +32,9 @@ fetch('https://fakestoreapi.com/products/')
    document.querySelector('header').insertAdjacentHTML('afterend',error);
 })
 */
+</script> -->
 
-</script>
-
-<?php 
+<!-- <?php 
 //2
 // $connect = curl_init();
 // curl_setopt($connect,CURLOPT_URL,'https://fakestoreapi.com/products/');
@@ -56,7 +55,7 @@ fetch('https://fakestoreapi.com/products/')
 //     ]
 //     ];
 // $json = file_get_contents('https://fakestoreapi.com/products/',false,stream_context_create($opts));
-?>
+?> -->
 
 <?php include 'inc/db.php';?>
 <!-- <?php //$_SESSION['isInsert'] = false;?> -->
@@ -114,19 +113,19 @@ function select_products() {
   return $products;
 }
 
-if (!isset($_SESSION['isInsert']) or $_SESSION['isInsert'] != true) {
+if (!isset($_COOKIE['isInsert']) or $_COOKIE['isInsert'] != true) {
   $data = get_data('https://fakestoreapi.com/products/');
   insert_categories_table();
   $cats = select_categoties();
   insert_product_table();
-  $_SESSION['isInsert'] = true;
-
+  // $_SESSION['isInsert'] = true;
+  setcookie('isInsert', true, time() + 365*24*60*60);
 }
 $cats = select_categoties();
 
 $products = select_products();
 
-
-
+// var_dump($_COOKIE['isInsert']);
+// setcookie('isInsert', true, time() - 365*24*60*60);
 ?>
 
