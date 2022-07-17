@@ -113,6 +113,33 @@ function select_products() {
   return $products;
 }
 
+function insert_product_into_cart($id, $title, $image, $price) {
+  global  $con;
+  $query = "INSERT INTO `cart` (id, title, image, price) VALUES ($id, '$title', '$image', $price)";
+  mysqli_query($con, $query);
+}
+
+function select_products_into_cart() {
+  global  $con;
+  $query = "SELECT * FROM `cart`";
+  $res = mysqli_query($con, $query);
+  return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+function get_data_product() {
+  global $products;
+  $id = $_GET['id'];
+  $ind = array_search($id, array_column($products, 'id'));
+  $arr = $products[$ind];
+  $title = $arr['title'];
+  $image = $arr['image'];
+  $price = $arr['price'];
+  insert_product_into_cart($id, $title, $image, $price);
+  $cart = select_products_into_cart();
+  // return ['id' => $id,'title' => $title, 'image' => $image,'price' => $price];
+  return $cart;
+}
+
 if (!isset($_COOKIE['isInsert']) or $_COOKIE['isInsert'] != true) {
   $data = get_data('https://fakestoreapi.com/products/');
   insert_categories_table();
@@ -122,9 +149,11 @@ if (!isset($_COOKIE['isInsert']) or $_COOKIE['isInsert'] != true) {
   setcookie('isInsert', true, time() + 365*24*60*60);
 }
 $cats = select_categoties();
-
 $products = select_products();
 
+if (isset($_GET['id'])) {
+  $cart= get_data_product();
+}
 // var_dump($_COOKIE['isInsert']);
 // setcookie('isInsert', true, time() - 365*24*60*60);
 ?>

@@ -24,13 +24,13 @@
 
             <div class="list-group w-100 mt-3">
               <?php 
-                $active_category_id = $_GET['id'];
+                $active_category_id = $_GET['cat_id'];
               ?>
               <?php 
                 $clazz = '';
                 if ($active_category_id == 0) $clazz = 'active';
               ?>
-                <a href="?id=0" class="list-group-item list-group-item-action <?= $clazz; ?>"  aria-current="true">
+                <a href="?cat_id=0" class="list-group-item list-group-item-action <?= $clazz; ?>"  aria-current="true">
                   All
                 </a>
               <?php foreach ($cats as $value) : ?>
@@ -41,7 +41,7 @@
                   if ($id == $active_category_id) $clazz = 'active';
                 ?>
             
-                <a href="?id=<?=$id?>" class="list-group-item list-group-item-action <?= $clazz; ?>" aria-current="true">
+                <a href="?cat_id=<?=$id?>" class="list-group-item list-group-item-action <?= $clazz; ?>" aria-current="true">
                   <?= ucfirst($name) ?>
                 </a>
               
@@ -51,7 +51,7 @@
 
           <div class="col-sm-8 offset-sm-1 mt-0 content row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-          <?php $category_id = $_GET['id']; ?>
+          <?php $category_id = $_GET['cat_id']; ?>
           <!-- <?php var_dump($category_id);?> -->
           <?php foreach ($products as $value) : ?>
             <?php if($category_id == 0 or $value['category_id'] == $category_id) :?>
@@ -78,7 +78,8 @@
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn  btn-primary">Add to cart</button>
+                      <!-- <button type="button" class="btn  btn-primary">Add to cart</button> -->
+                      <a class="btn  btn-primary" href="?id=<?=$value['id']?>&cat_id=<?= $category_id?>">Add to cart</a>
                     </div>
                   </div>
                 </div>
@@ -95,4 +96,5 @@
 
   </main>
 
+  <!-- <?php var_dump ($_GET);?> -->
 <?php include 'inc/footer.php'; ?>

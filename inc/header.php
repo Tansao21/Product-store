@@ -69,22 +69,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">User cart</h5>
+        <!-- <?=$data_product?> -->
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <ul class="list-group">
+        <?php foreach ($cart as $product) :?>
+          <?php $total += $product['price']?>
         <li class="list-group-item">
-          <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  class="me-3" width="30">
-          <label for="">Mens Casual Premiu</label>
-          <span class="mx-2 fw-bold">$ 200</span>
+          <img src="<?=$product['image']?>"  class="me-3" width="30">
+          <label style="width: 90%; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;"><?=$product['title']?></label>
+          <span class="mx-2 fw-bold">$ <?=$product['price']?></span>
           <button class="btn btn-danger float-end">x</button>
         </li>
+        <?php endforeach;?>
       </ul>
       </div>
       <div class="modal-footer justify-content-between">
         <div>
           <label>Итого: </label>
-          <span class="fw-bold">$20000</span>
+          <span class="fw-bold">$<?=$total?></span>
         </div>
 
         <div>
