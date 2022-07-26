@@ -62,6 +62,7 @@ fetch('https://fakestoreapi.com/products/')
 <?php 
 // if (isset($_SESSION['isInsert']) or $_SESSION['isInsert'] == false)
 // unset($_SESSION['isInsert']);
+$cart = select_products_from_cart();
 function get_data($url) {
   $json = file_get_contents($url);
   $data = json_decode($json,true);
@@ -119,23 +120,40 @@ function insert_product_into_cart($id, $title, $image, $price) {
   mysqli_query($con, $query);
 }
 
-function select_products_into_cart() {
+function select_products_from_cart() {
   global  $con;
   $query = "SELECT * FROM `cart`";
   $res = mysqli_query($con, $query);
   return mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
+function update_product_in_cart($id) {
+  global  $con;
+  $query = "UPDATE `cart` SET qty=(SELECT qty FROM `cart` WHERE id={$id})+1 WHERE id={$id}";
+  $res = mysqli_query($con, $query);
+  // mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
 function get_data_product() {
-  global $products;
+  global $products, $cart;
   $id = $_GET['id'];
+  $is_in_cart = false;
+  foreach ($cart as $value) {
+    if ($id == $value['id']) {
+      $is_in_cart = true;
+      update_product_in_cart($value['id']);
+      break;
+    }
+  }
+if ($is_in_cart == false) {
   $ind = array_search($id, array_column($products, 'id'));
   $arr = $products[$ind];
   $title = $arr['title'];
   $image = $arr['image'];
   $price = $arr['price'];
   insert_product_into_cart($id, $title, $image, $price);
-  $cart = select_products_into_cart();
+}
+  $cart = select_products_from_cart();
   // return ['id' => $id,'title' => $title, 'image' => $image,'price' => $price];
   return $cart;
 }
@@ -154,6 +172,8 @@ $products = select_products();
 if (isset($_GET['id'])) {
   $cart= get_data_product();
 }
+
+// var_dump($cart);
 // var_dump($_COOKIE['isInsert']);
 // setcookie('isInsert', true, time() - 365*24*60*60);
 ?>
