@@ -76,14 +76,14 @@
       <ul class="list-group">
         <?php foreach ($cart as $product) :?>
           <?php $total += $product['price'] *  $product['qty']?>
-        <li class="list-group-item border-primary">
+        <li class="list-group-item border-primary" data-id="<?=$product['id']?>">
           <img src="<?=$product['image']?>"  class="me-3" width="30">
           <label style="width: 90%; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;"><?=$product['title']?></label>
           <hr>
           <span class="d-block text-primary">x<?=$product['qty']?></span>
           <span class="mx-2 fw-bold">$ <?=$product['price'] * $product['qty']?></span>
           <!-- <button class="btn btn-danger float-end">x</button> -->
-          <a href="?cart_product_id=<?$product['id']?>" class="btn btn-danger float-end">x</a>
+          <a href="?cart_product_id=<?$product['id']?>" class="btn btn-danger float-end btn-delete">x</a>
         </li>
         <?php endforeach;?>
       </ul>
@@ -95,7 +95,7 @@
         </div>
 
         <div>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Clear All</button>
+          <button type="button" class="btn btn-danger btn-clear" data-bs-dismiss="modal">Clear All</button>
           <button type="button" class="btn btn-success">Make order</button>
         </div>
 
@@ -103,3 +103,4 @@
     </div>
   </div>
 </div>
+

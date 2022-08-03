@@ -129,14 +129,16 @@ function select_products_from_cart() {
 
 function update_product_in_cart($id) {
   global  $con;
-  $query = "UPDATE `cart` SET qty=(SELECT qty FROM `cart` WHERE id={$id})+1 WHERE id={$id}";
+  $query = "UPDATE `cart` SET qty=(SELECT qty FROM (SELECT * FROM `cart` WHERE id={$id}) as t)+1 WHERE id={$id}";
   $res = mysqli_query($con, $query);
+  header("location:index.php");
   // mysqli_fetch_all($res, MYSQLI_ASSOC);
 }
 
 function get_data_product() {
   global $products, $cart;
   $id = $_GET['id'];
+  // var_dump($_GET);
   $is_in_cart = false;
   foreach ($cart as $value) {
     if ($id == $value['id']) {
@@ -177,4 +179,3 @@ if (isset($_GET['id'])) {
 // var_dump($_COOKIE['isInsert']);
 // setcookie('isInsert', true, time() - 365*24*60*60);
 ?>
-

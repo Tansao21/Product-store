@@ -2,6 +2,21 @@
 <?php include 'inc/handler.php'; ?>
 <?php include 'inc/header.php'; ?>
 
+<script>
+// console.log(document.querySelector("#exampleModal"));
+document.querySelector("#exampleModal .list-group").addEventListener("click",function(e) {
+  e.preventDefault();
+  if (e.target.matches('.btn-delete')) {
+    // console.log(e.target.parentElement);
+    let id = e.target.parentElement.dataset.id;
+    fetch('inc/fetch.php',{
+      method: 'post',
+      body: id
+    }).then((resp) => resp.text()).then((data) => console.log(data));
+  }
+})
+</script>
+
   <main>
 
     <section class="py-5 text-center container">
@@ -96,5 +111,6 @@
 
   </main>
 
-  <!-- <?php var_dump ($_GET);?> -->
+  <?php //var_dump ($_GET);?>
 <?php include 'inc/footer.php'; ?>
+
