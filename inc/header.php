@@ -80,8 +80,8 @@
           <img src="<?=$product['image']?>"  class="me-3" width="30">
           <label style="width: 90%; display: -webkit-box;-webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;"><?=$product['title']?></label>
           <hr>
-          <span class="d-block text-primary">x<?=$product['qty']?></span>
-          <span class="mx-2 fw-bold">$ <?=$product['price'] * $product['qty']?></span>
+          <span class="d-block text-primary">x <span class="qty"><?=$product['qty']?></span></span>
+          <span class="mx-2 fw-bold">$<span class="price"><?=$product['price'] * $product['qty']?></span> </span>
           <!-- <button class="btn btn-danger float-end">x</button> -->
           <a href="?cart_product_id=<?$product['id']?>" class="btn btn-danger float-end btn-delete">x</a>
         </li>
@@ -91,7 +91,7 @@
       <div class="modal-footer justify-content-between">
         <div>
           <label>Итого: </label>
-          <span class="fw-bold">$<?=$total?></span>
+          <span class="fw-bold">$<span class="total"><?=$total?></span></span>
         </div>
 
         <div>

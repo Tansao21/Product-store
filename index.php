@@ -7,12 +7,27 @@
 document.querySelector("#exampleModal .list-group").addEventListener("click",function(e) {
   e.preventDefault();
   if (e.target.matches('.btn-delete')) {
-    // console.log(e.target.parentElement);
+    // console.log(123);
     let id = e.target.parentElement.dataset.id;
     fetch('inc/fetch.php',{
       method: 'post',
       body: id
-    }).then((resp) => resp.text()).then((data) => console.log(data));
+    }).then((resp) => resp.json())
+    .then((data) => {
+      console.log(data);
+      let qty = data.qty;
+      let price = data.price * qty;
+      let total = data.total;
+      if (qty > 0) {
+        e.target.parentElement.querySelector('.qty').textContent = qty;
+        e.target.parentElement.querySelector('.price').textContent = price;
+        document.querySelector('#exampleModal .total').textContent = total.toFixed;
+      } else {
+        e.target.parentElement.remove();
+        // возврощать тотал перепитать итого
+      }
+    })
+    .catch(() => alert('Ощибка удаления товара...'));
   }
 })
 </script>
