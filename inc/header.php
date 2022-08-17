@@ -91,7 +91,8 @@
       <div class="modal-footer justify-content-between">
         <div>
           <label>Итого: </label>
-          <span class="fw-bold">$<span class="total"><?=$total?></span></span>
+          <!-- <span class="fw-bold">$<span class="total"><?=($total == null ?' 0.00' : $total)?></span></span> -->
+          <span class="fw-bold">$<span class="total"><?=number_format(((float) $total),2,'.','')?></span></span>
         </div>
 
         <div>

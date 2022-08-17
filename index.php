@@ -21,13 +21,13 @@ document.querySelector("#exampleModal .list-group").addEventListener("click",fun
       if (qty > 0) {
         e.target.parentElement.querySelector('.qty').textContent = qty;
         e.target.parentElement.querySelector('.price').textContent = price;
-        document.querySelector('#exampleModal .total').textContent = total.toFixed;
       } else {
         e.target.parentElement.remove();
         // возврощать тотал перепитать итого
       }
+      document.querySelector('#exampleModal .total').textContent = Number(total).toFixed(2);
     })
-    .catch(() => alert('Ощибка удаления товара...'));
+    .catch(() =>  alert('Ошибка удаления товара...'));
   }
 })
 </script>

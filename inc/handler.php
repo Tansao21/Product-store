@@ -118,6 +118,7 @@ function insert_product_into_cart($id, $title, $image, $price) {
   global  $con;
   $query = "INSERT INTO `cart` (id, title, image, price) VALUES ($id, '$title', '$image', $price)";
   mysqli_query($con, $query);
+  header("location:index.php");
 }
 
 function select_products_from_cart() {

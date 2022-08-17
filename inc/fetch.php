@@ -14,7 +14,11 @@ if ($data['qty'] > 1) {
 } else {
   $query = "DELETE FROM `cart` WHERE id={$id}";
   mysqli_query($con, $query);
-  echo json_encode(['qty'=>0]);
+  $query = "SELECT SUM(qty*price) AS total FROM `cart`";
+  $res = mysqli_query($con, $query);
+  $data = mysqli_fetch_assoc($res);
+  $total = $data['total'];
+  echo json_encode(['qty'=>0,'total'=>$total]);
 }
 
 
