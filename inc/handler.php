@@ -115,8 +115,9 @@ function select_products() {
 }
 
 function insert_product_into_cart($id, $title, $image, $price) {
+  $user_id = $_SESSION['user_id'];
   global  $con;
-  $query = "INSERT INTO `cart` (id, title, image, price) VALUES ($id, '$title', '$image', $price)";
+  $query = "INSERT INTO `cart` (id, user_id, title, image, price) VALUES ($id, $user_id, '$title', '$image', $price)";
   mysqli_query($con, $query);
   header("location:index.php");
 }
@@ -161,6 +162,31 @@ if ($is_in_cart == false) {
   return $cart;
 }
 
+function  clear() {
+  global $con;
+  $query = "DELETE  FROM `cart`";
+  $res = mysqli_query($con, $query);
+  header("location:index.php");
+}
+
+function login($login, $password) {
+  global $con;
+  $query = "SELECT * FROM `users`";
+  $res = mysqli_query($con, $query);
+  $arr = mysqli_fetch_all($res, MYSQLI_ASSOC);
+  foreach ($arr as $user) {
+    if ($user['login'] == $login and $user['password'] == $password){
+      $_SESSION['user_id'] = $user['id'];
+      $is_auth = true;
+      break;
+    }
+  }
+  if (!$is_auth) {
+    $_SESSION['login_error'] = "<script>alert('Пользователь не найден')</script>";
+  }
+  header("location:index.php");
+}
+
 if (!isset($_COOKIE['isInsert']) or $_COOKIE['isInsert'] != true) {
   $data = get_data('https://fakestoreapi.com/products/');
   insert_categories_table();
@@ -176,6 +202,12 @@ if (isset($_GET['id'])) {
   $cart= get_data_product();
 }
 
+if (isset($_GET['clear']) and $_GET['clear'] == true) {
+  clear();
+}
+if (isset($_POST['login']) and isset($_POST['password'])) {
+  login($_POST['login'], $_POST['password']);
+}
 // var_dump($cart);
 // var_dump($_COOKIE['isInsert']);
 // setcookie('isInsert', true, time() - 365*24*60*60);

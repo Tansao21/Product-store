@@ -50,6 +50,11 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Button login modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+              Login
+        </button>
+        <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <i class="bi bi-cart-plus"></i>
         </button>
@@ -57,8 +62,15 @@
     </div>
   </header>
 
-
-
+<?php 
+    // var_dump($_SESSION);
+    if (isset($_SESSION['login_error'])) {
+      echo $_SESSION['login_error'];
+      unset($_SESSION['login_error']);
+      // $variable = $_SESSION['login_error'];
+      // unset( $_SESSION['login_error'], $variable );
+    }
+?>
 
 
 
@@ -96,8 +108,9 @@
         </div>
 
         <div>
-          <button type="button" class="btn btn-danger btn-clear" data-bs-dismiss="modal">Clear All</button>
-          <button type="button" class="btn btn-success">Make order</button>
+          <!-- <button type="button" class="btn btn-danger btn-clear" data-bs-dismiss="modal">Clear All</button> -->
+          <a href="?clear=true" class="btn btn-danger btn-clear">Clear All</a>
+          <button type="button" class="btn btn-success order">Make order</button>
         </div>
 
       </div>
@@ -105,3 +118,32 @@
   </div>
 </div>
 
+
+
+
+
+
+
+<!-- Modal login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <!-- <?=$data_product?> -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <input type="text" name="login" id="login" class="form-control" placeholder="Login" required>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+          <button type="submit" class="btn btn-success er">log in</button>
+      </div>
+    </form>
+  </div>
+</div>

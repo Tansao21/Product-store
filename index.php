@@ -30,6 +30,8 @@ document.querySelector("#exampleModal .list-group").addEventListener("click",fun
     .catch(() =>  alert('Ошибка удаления товара...'));
   }
 })
+
+
 </script>
 
   <main>
@@ -129,3 +131,17 @@ document.querySelector("#exampleModal .list-group").addEventListener("click",fun
   <?php //var_dump ($_GET);?>
 <?php include 'inc/footer.php'; ?>
 
+<script>
+  $('.order').click(function() {
+  const user_id = <?= $_SESSION['user_id']; ?>;
+  console.log(user_id);
+  $.ajax({
+    method: 'POST',
+    url: 'inc/fetch.php',
+    data: {user_id: user_id}
+  })
+  .done(function(resp) {
+    console.log(resp);
+  });
+});
+</script>
